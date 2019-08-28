@@ -123,12 +123,16 @@ public class MainParse {
         locationRefnumValue.setTextContent(letterCodes.item(j).getTextContent());
         locationRefnum.appendChild(locationRefnumValue);
       }
-      File file1 = new File("Partner_" + (i+1) + ".xml");
-      Transformer transformer = TransformerFactory.newInstance().newTransformer();
-      transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-      transformer.setOutputProperty(OutputKeys.DOCTYPE_PUBLIC,"yes");
-      transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "10");
-      transformer.transform(new DOMSource(newXml), new StreamResult(file1));
+      File dir = new File("Partner");
+      if(!dir.exists()) {
+        dir.mkdir();
+      }
+        File file1 = new File("Partner/Partner_" + (idFromDb.get(i)) + ".xml");
+        Transformer transformer = TransformerFactory.newInstance().newTransformer();
+        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+        transformer.setOutputProperty(OutputKeys.DOCTYPE_PUBLIC, "yes");
+        transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "10");
+        transformer.transform(new DOMSource(newXml), new StreamResult(file1));
     }
   }
 
